@@ -1,0 +1,2384 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--primary);
+  --color-accent: var(--muted);
+  --color-accent-foreground: var(--foreground);
+  --font-sans: 'Trebuchet MS', Arial, sans-serif;
+  --radius-lg: 1rem;
+}
+:root,
+.dark {
+  --background: #123e48;
+  --foreground: #183f44;
+  --primary: #285e58;
+  --primary-foreground: #fff9e7;
+  --popover: #f6f1df;
+  --muted: #e6e4d3;
+  --muted-foreground: #62766d;
+  --border: #cbd2be;
+  --gold: #efcc7c;
+  --ink: #173e43;
+  --paper: #f6f1df;
+  --radius: 1rem;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+button:focus-visible {
+  outline: 3px solid #e8b949;
+  outline-offset: 4px;
+}
+button svg {
+  flex-shrink: 0;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+button {
+  border: 0;
+}
+.game-shell {
+  position: relative;
+  height: 100dvh;
+  min-height: 300px;
+  overflow: hidden;
+  color: var(--ink);
+  isolation: isolate;
+  background: #318a94;
+}
+.world {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.world canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+.topbar {
+  position: absolute;
+  top: max(24px, env(safe-area-inset-top));
+  left: 32px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  pointer-events: none;
+}
+.topbar > * {
+  pointer-events: auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #f9f6df;
+  text-shadow: 0 2px 12px #17495755;
+}
+.brand > svg {
+  width: 37px;
+  height: 37px;
+}
+.brand > span {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  letter-spacing: 4px;
+  font-weight: bold;
+}
+.brand small {
+  display: block;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2.2px;
+  margin-top: 5px;
+  font-weight: normal;
+}
+.time-pill {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f6f1dfee;
+  padding: 13px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: bold;
+  box-shadow: 0 4px 20px #143e4320;
+}
+.time-pill i {
+  height: 15px;
+  border-left: 1px solid #b7bfa9;
+}
+.icon-button {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f1dfed;
+  color: var(--ink);
+  box-shadow: 0 4px 12px #123e4320;
+}
+.icon-button:hover {
+  background: #fffbed;
+  transform: translateY(-1px);
+}
+.location {
+  position: absolute;
+  top: 122px;
+  left: 38px;
+  color: #f8f6df;
+  text-shadow: 0 2px 15px #12485055;
+  pointer-events: none;
+}
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  font-weight: bold;
+}
+.location h1 {
+  font-family: Georgia, serif;
+  font-weight: normal;
+  font-size: 38px;
+  margin: 8px 0 12px;
+}
+.location p {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+  color: #f4f5df;
+}
+.quest-card {
+  position: absolute;
+  left: 32px;
+  bottom: 118px;
+  width: 255px;
+  padding: 22px;
+  border: 1px solid #f4f0d55c;
+  border-radius: 15px;
+  background: #f6f1dff2;
+  box-shadow: 0 8px 32px #123e4320;
+}
+.quest-card .eyebrow {
+  font-size: 12px;
+  color: #688775;
+  letter-spacing: 1.8px;
+}
+.quest-card h2 {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  margin: 10px 0;
+}
+.quest-card p {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #5a726a;
+}
+.quest-card small {
+  display: block;
+  margin-top: 18px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #587166;
+}
+.bottom-dock {
+  position: absolute;
+  bottom: max(26px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 0 25px;
+  border: 1px solid #fae7a0;
+  border-radius: 12px;
+  background: #efcc7c;
+  color: #244942;
+  box-shadow: 0 6px 20px #163e4328;
+  font-weight: bold;
+  font-size: 14px;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.action-button:hover {
+  background: #ffdc8c;
+  transform: translateY(-2px);
+}
+.action-button.secondary {
+  background: #f7f2dff2;
+  border-color: #f8f4de;
+}
+.action-button svg {
+  width: 21px;
+  height: 21px;
+}
+kbd {
+  font:
+    12px 'Trebuchet MS',
+    sans-serif;
+  border: 1px solid #68836b55;
+  padding: 3px 5px;
+  border-radius: 4px;
+  margin-left: 7px;
+  opacity: 0.7;
+}
+.loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: #174952;
+  font-size: 18px;
+}
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.topbar .icon-button {
+  background: #16434a50;
+  border: 1px solid #f6f1df38;
+  box-shadow: none;
+  color: #f6f1df;
+}
+.topbar .icon-button:hover {
+  background: #1b535c9c;
+}
+.wallet {
+  position: absolute;
+  right: 34px;
+  top: 91px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #fcf2ca;
+  text-shadow: 0 2px 5px #154b4f50;
+  font-size: 15px;
+}
+.wallet strong {
+  font-size: 21px;
+}
+.wallet span {
+  font-size: 12px;
+  opacity: 0.8;
+}
+.quest-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  color: #688775;
+}
+.quest-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 0 0;
+  margin-top: 15px;
+  border-top: 1px solid #b8c3ab8a;
+  background: none;
+  color: #376252;
+  font-size: 12px;
+  text-align: left;
+}
+.navigation-panel {
+  position: absolute;
+  bottom: 118px;
+  right: 32px;
+  width: 196px;
+}
+.minimap-button {
+  display: block;
+  width: 100%;
+  padding: 7px;
+  background: #f6f1dfed;
+  border: 1px solid #fffce185;
+  border-radius: 14px;
+  box-shadow: 0 7px 28px #123e4328;
+  overflow: hidden;
+}
+.sea-chart {
+  display: block;
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: 8px;
+}
+.minimap-button > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.7px;
+  padding: 10px 4px 4px;
+}
+.boat-meters {
+  margin: 15px 2px 0;
+  padding: 12px 14px;
+  background: #16475287;
+  border: 1px solid #e5f4dc2b;
+  border-radius: 12px;
+  color: #f6f1df;
+  backdrop-filter: blur(10px);
+}
+.meter + .meter {
+  margin-top: 12px;
+}
+.meter > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+}
+.meter strong {
+  margin-left: auto;
+  font-weight: normal;
+  font-variant-numeric: tabular-nums;
+}
+.meter strong small {
+  font-size: 12px;
+  opacity: 0.65;
+  margin-left: 3px;
+}
+.meter-track {
+  height: 4px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #e0ebd326;
+  margin-top: 7px;
+}
+.meter-track i {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  transition: width 0.2s;
+}
+.green .meter-track i {
+  background: #a0d5b9;
+}
+.red .meter-track i {
+  background: #f39c89;
+}
+.bottom-dock .icon-button {
+  border: 1px solid #fff7d8a8;
+  position: relative;
+}
+.count-badge {
+  position: absolute;
+  top: -3px;
+  right: -1px;
+  background: #547e66;
+  color: #faf2d1;
+  min-width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  font-size: 12px;
+  display: grid;
+  place-items: center;
+}
+.dock-divider {
+  height: 30px;
+  border-left: 1px solid #fff2d340;
+  margin: 0 4px;
+}
+.context-prompt {
+  position: absolute;
+  left: 50%;
+  bottom: 103px;
+  transform: translateX(-50%);
+  padding: 13px 18px;
+  border: 1px solid #fcf3d167;
+  border-radius: 9px;
+  background: #143e46d4;
+  box-shadow: 0 5px 20px #0c3c3c24;
+  color: #fbf2d7;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 13px;
+  white-space: nowrap;
+  backdrop-filter: blur(5px);
+}
+.context-prompt.passive {
+  pointer-events: none;
+  background: #163f4560;
+  border: 0;
+}
+.context-prompt kbd {
+  border-color: #f1ecc34a;
+}
+.desktop-hint {
+  position: absolute;
+  bottom: 34px;
+  left: 32px;
+  font-size: 12px;
+  color: #f6f2d2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.desktop-hint kbd {
+  border-color: #f9f3d344;
+  margin-left: 0;
+  margin-right: 3px;
+  font-size: 12px;
+}
+.desktop-hint > span:last-child {
+  opacity: 0.6;
+  font-size: 12px;
+}
+.save-status {
+  position: absolute;
+  right: 32px;
+  bottom: 38px;
+  font-size: 12px;
+  color: #e6f0d4;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  opacity: 0.75;
+}
+.save-status > span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #d0e2b1;
+}
+.toast {
+  position: absolute;
+  z-index: 40;
+  top: 87px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  max-width: 450px;
+  width: max-content;
+  max-width: min(470px, calc(100% - 32px));
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid #fff7d88c;
+  background: #fbf5df;
+  color: #234d4c;
+  font-size: 13px;
+  line-height: 1.5;
+  box-shadow: 0 8px 35px #123e4340;
+  animation: toast-in 0.25s ease-out;
+}
+.toast > svg {
+  flex-shrink: 0;
+}
+.toast button {
+  background: none;
+  color: inherit;
+  opacity: 0.6;
+  padding: 3px;
+  display: grid;
+  place-items: center;
+}
+.toast.warning {
+  background: #fff0d5;
+  border-color: #e8b48a;
+}
+.toast.discovery {
+  background: #e2f4e6;
+  border-color: #87b8a0;
+}
+.loading {
+  text-align: center;
+  z-index: 80;
+}
+.loading > div {
+  max-width: 430px;
+  padding: 30px;
+}
+.loading svg {
+  margin: 0 auto 20px;
+  color: #efcc7c;
+}
+.loading h1 {
+  font:
+    44px Georgia,
+    serif;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+.loading p {
+  font-size: 16px;
+  line-height: 1.8;
+  opacity: 0.85;
+}
+.loading button {
+  margin-top: 25px;
+}
+.joystick {
+  position: absolute;
+  bottom: 110px;
+  left: 26px;
+  width: 122px;
+  height: 122px;
+  border-radius: 50%;
+  border: 1px solid #f4f1d55c;
+  background: #123e4338;
+  touch-action: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 16px #f8f4d40a;
+  backdrop-filter: blur(3px);
+}
+.joystick-knob {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #f5edcda6;
+  border: 1px solid #fff8d8;
+  box-shadow: 0 3px 10px #14404a30;
+  pointer-events: none;
+}
+.joystick-label {
+  position: absolute;
+  bottom: -22px;
+  font-size: 12px;
+  color: #f1efd3;
+  letter-spacing: 2px;
+}
+.joystick-north {
+  position: absolute;
+  top: 5px;
+  color: #f4f0d49c;
+  font-size: 14px;
+}
+.touch-mode .desktop-hint {
+  display: none;
+}
+.touch-mode .quest-card {
+  bottom: 280px;
+}
+.fishing-title,
+.dive-title {
+  position: absolute;
+  top: 123px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #f9f2db;
+  width: min(650px, calc(100% - 30px));
+  pointer-events: none;
+}
+.fishing-title h1,
+.dive-title h1 {
+  font:
+    32px Georgia,
+    serif;
+  margin: 10px 0 14px;
+}
+.fishing-title p,
+.dive-title p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #c2dfe0;
+}
+.fishing-title .eyebrow,
+.dive-title .eyebrow {
+  color: #9fc9c4;
+}
+.fish-guide {
+  position: absolute;
+  left: 50%;
+  bottom: 110px;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #d0e4dc;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 14px;
+  pointer-events: none;
+}
+.fish-guide > span {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+.fish-guide small {
+  font-size: 12px;
+  opacity: 0.7;
+}
+.fishing-control {
+  position: absolute;
+  bottom: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(410px, calc(100% - 36px));
+  background: #113c48e3;
+  color: #f4edce;
+  padding: 19px 22px;
+  border: 1px solid #9ac9c147;
+  border-radius: 13px;
+}
+.tension-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+.tension-label > span {
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  opacity: 0.7;
+}
+.tension-track {
+  height: 15px;
+  border-radius: 6px;
+  background: #976d64;
+  position: relative;
+  margin-bottom: 15px;
+}
+.safe-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: #80b8a4;
+  border-left: 2px solid #acd4b9;
+  border-right: 2px solid #acd4b9;
+}
+.tension-track > i {
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  width: 4px;
+  border-radius: 3px;
+  background: #fff4cf;
+  transform: translateX(-50%);
+  box-shadow: 0 0 8px #f9eab980;
+}
+.catch-progress {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.reel-progress-track {
+  margin-top: 8px;
+  height: 4px;
+  background: #d1e6d32b;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.reel-progress-track i {
+  display: block;
+  height: 100%;
+  background: #efcc7c;
+}
+.reel-button {
+  touch-action: none;
+  user-select: none;
+  min-width: 210px;
+}
+.reel-button:active {
+  background: #ffefb8;
+  transform: scale(0.98);
+}
+.dive-stats {
+  position: absolute;
+  left: 32px;
+  top: 155px;
+  width: 185px;
+  color: #dcf0e0;
+  background: #153f48a6;
+  border: 1px solid #cee3ce33;
+  border-radius: 14px;
+  padding: 20px;
+}
+.depth-reading {
+  display: flex;
+  flex-direction: column;
+  margin-top: 22px;
+  gap: 7px;
+}
+.depth-reading > span {
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0.6;
+}
+.depth-reading strong {
+  font:
+    33px Georgia,
+    serif;
+}
+.depth-reading strong small {
+  font-size: 20px;
+}
+.depth-reading > small {
+  font-size: 12px;
+  opacity: 0.6;
+}
+.loot-tracker {
+  position: absolute;
+  right: 32px;
+  top: 170px;
+  color: #eddba5;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #153f48aa;
+  border: 1px solid #cee3ce2e;
+  border-radius: 12px;
+  padding: 18px;
+  font-size: 14px;
+}
+.loot-tracker small {
+  display: block;
+  margin-top: 7px;
+  font-size: 12px;
+  color: #bad0c9;
+}
+.loot-tracker > span {
+  font-size: 26px;
+  margin-left: 10px;
+}
+.depth-controls {
+  position: absolute;
+  bottom: 130px;
+  right: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.depth-controls button {
+  touch-action: none;
+}
+.depth-controls > span {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #d8e9d5;
+}
+.dive-key-hint {
+  position: absolute;
+  bottom: 45px;
+  left: 32px;
+  font-size: 12px;
+  color: #bcdacf;
+}
+[data-slot='dialog-overlay'] {
+  background: #092e3c80 !important;
+  backdrop-filter: blur(7px) !important;
+}
+.game-panel[data-slot='dialog-content'] {
+  display: block !important;
+  max-width: 650px !important;
+  width: calc(100% - 40px) !important;
+  max-height: calc(100dvh - 50px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 20px !important;
+  background: #f5f0df !important;
+  color: #234a47 !important;
+  padding: 32px !important;
+  box-shadow: 0 35px 130px #082d4a66 !important;
+  border: 1px solid #fff9df;
+  scrollbar-width: thin;
+  scrollbar-color: #9ba996 #eee9d8;
+}
+.game-panel .panel-title {
+  font-family: Georgia, serif !important;
+  font-size: 30px !important;
+  font-weight: normal !important;
+  line-height: 1.2 !important;
+  padding-right: 25px;
+  margin-bottom: 9px;
+}
+.panel-description {
+  color: #698077 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  margin-bottom: 25px !important;
+}
+.panel-note {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #6a7d72;
+  margin: 16px 0;
+}
+.panel-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: #516f63;
+  margin-bottom: 15px;
+}
+.panel-summary > span {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.panel-summary > span + span {
+  color: #6e8075;
+}
+.panel-chart[data-slot='dialog-content'] {
+  max-width: 680px !important;
+}
+.large-chart {
+  width: 100%;
+  border: 6px solid #d8dcc7;
+  cursor: crosshair;
+  border-radius: 12px;
+  max-height: 58dvh;
+  object-fit: contain;
+}
+.chart-legend {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #6f8376;
+  margin: 16px 0;
+}
+.chart-legend > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.legend-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d6b968;
+}
+.charted-islands {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.charted-islands .small-button {
+  font-size: 12px;
+  min-height: 38px;
+}
+.inventory-grid {
+  display: grid;
+  gap: 5px;
+  position: relative;
+  margin: 20px 0;
+}
+.inventory-cell {
+  border: 1px solid #c9cdb8;
+  background: #e9e5d1;
+  min-width: 0;
+  border-radius: 5px;
+  grid-area: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #917261;
+}
+.inventory-cell:hover {
+  background: #e1e2cb;
+}
+.inventory-cell.blocked {
+  background: repeating-linear-gradient(
+    45deg,
+    #cebcaa,
+    #cebcaa 7px,
+    #d9caba 7px,
+    #d9caba 14px
+  );
+}
+.cargo-item {
+  z-index: 1;
+  position: relative;
+  border: 1px solid #5c858055;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+  padding: 5px;
+  color: #1d4850;
+  box-shadow: inset 0 0 15px #fbefc736;
+}
+.cargo-item > svg {
+  width: 24px;
+  flex-shrink: 0;
+}
+.cargo-item span {
+  font-size: 12px;
+  line-height: 1.3;
+  text-align: left;
+  max-width: 80px;
+}
+.cargo-item.selected {
+  outline: 3px solid #3a7767;
+  outline-offset: 0;
+  box-shadow: 0 0 0 5px #f2ecd4;
+  z-index: 2;
+}
+.selected-cargo {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  border-top: 1px solid #cdd3bc;
+  padding-top: 18px;
+}
+.selected-cargo > div {
+  flex: 1;
+  min-width: 130px;
+}
+.selected-cargo strong {
+  display: block;
+  font-size: 14px;
+}
+.selected-cargo small {
+  display: block;
+  font-size: 12px;
+  color: #718275;
+  margin-top: 6px;
+}
+.small-button {
+  border: 1px solid #b8c4ad;
+  background: #e8e9d7;
+  color: #315e50;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 9px 13px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+.small-button:hover {
+  background: #dce2ca;
+}
+.small-button.danger {
+  background: transparent;
+  color: #9b6b53;
+  border-color: #cdbca4;
+}
+.empty-hint {
+  text-align: center;
+  padding: 25px 10px;
+  font-size: 14px;
+  color: #7d8b78;
+  line-height: 1.7;
+}
+.nautical-tabs [data-slot='tabs-list'] {
+  display: flex;
+  width: 100%;
+  height: auto;
+  background: #e2e5d2;
+  border-radius: 9px;
+  padding: 4px;
+  margin: 5px 0 22px;
+  gap: 4px;
+}
+.nautical-tabs [data-slot='tabs-trigger'] {
+  min-height: 40px;
+  border-radius: 7px;
+  font-size: 14px;
+  box-shadow: none;
+  color: #6a7a66;
+  padding: 8px;
+}
+.nautical-tabs [data-slot='tabs-trigger'][data-active] {
+  background: #f9f5e4;
+  color: #2b5548;
+  box-shadow: 0 2px 4px #3b574612;
+}
+.nautical-tabs [data-slot='tabs-content'] {
+  font-size: 14px;
+}
+.journal-intro {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+  margin: 4px 0 23px;
+}
+.journal-intro > svg {
+  flex-shrink: 0;
+  color: #74896d;
+}
+.journal-intro h2 {
+  font:
+    24px Georgia,
+    serif;
+  margin: 8px 0;
+}
+.journal-intro p {
+  font-size: 14px;
+  color: #6c7f71;
+  line-height: 1.7;
+}
+.journal-intro .eyebrow {
+  font-size: 12px;
+  color: #859071;
+}
+.stat-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 27px;
+  padding: 17px;
+  background: #e7e8d5;
+  border: 1px solid #d4dbc2;
+  border-radius: 11px;
+}
+.stat-row > div {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.stat-row strong {
+  font:
+    28px Georgia,
+    serif;
+  color: #3e6e5b;
+}
+.stat-row span {
+  font-size: 12px;
+  color: #72836e;
+}
+.section-label {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #7b896b;
+  margin: 15px 0;
+}
+.contract {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 19px 0;
+  border-bottom: 1px solid #d6dac3;
+}
+.contract .eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.8px;
+  color: #859172;
+}
+.contract h3 {
+  font:
+    20px Georgia,
+    serif;
+  margin: 8px 0;
+}
+.contract p {
+  font-size: 13px;
+  color: #6f8070;
+  line-height: 1.5;
+}
+.contract small {
+  display: block;
+  margin-top: 7px;
+  font-size: 12px;
+  color: #8a8e68;
+}
+.contract > strong {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 16px;
+  color: #758057;
+}
+.fish-catalogue {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.fish-entry {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+  padding: 15px 10px;
+  border: 1px solid #dadbc4;
+  background: #ebe8d7;
+  border-radius: 9px;
+  opacity: 0.68;
+}
+.fish-entry.recorded {
+  opacity: 1;
+  background: #f9f5e4;
+  border-color: #acc3a6;
+}
+.fish-entry > svg {
+  flex-shrink: 0;
+}
+.fish-entry strong {
+  display: block;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.fish-entry small {
+  display: block;
+  color: #7d8a73;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 3px;
+}
+.fish-entry > svg:last-child:not(:first-child) {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #5d8867;
+  width: 12px;
+}
+.story-prologue {
+  font:
+    italic 18px/1.8 Georgia,
+    serif;
+  color: #7c8b6c;
+  margin: 10px 0 25px;
+}
+.relic-entry {
+  display: flex;
+  gap: 17px;
+  padding: 21px 0;
+  border-top: 1px solid #d4d9c1;
+  color: #8b977f;
+}
+.relic-entry > svg {
+  flex-shrink: 0;
+}
+.relic-entry.found {
+  color: #5b8a74;
+}
+.relic-entry h3 {
+  font:
+    22px Georgia,
+    serif;
+  margin-bottom: 9px;
+}
+.relic-entry p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.ending-note,
+.ending-choice {
+  text-align: center;
+  padding: 25px;
+  background: #e2e8d7;
+  border: 1px solid #b7cbae;
+  border-radius: 13px;
+  margin-top: 25px;
+}
+.ending-note > svg,
+.ending-choice > svg {
+  margin: 0 auto 15px;
+}
+.ending-note h3,
+.ending-choice h2 {
+  font:
+    24px Georgia,
+    serif;
+  margin: 10px 0;
+}
+.ending-note p,
+.ending-choice p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #6b8069;
+  margin: 15px 0;
+}
+.ending-choice button {
+  margin: 8px auto;
+  display: flex;
+}
+.harbour-greeting {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  margin: 5px 0 24px;
+}
+.harbour-greeting > svg {
+  color: #6f8d70;
+  flex-shrink: 0;
+}
+.harbour-greeting h2 {
+  font:
+    23px Georgia,
+    serif;
+  margin-bottom: 10px;
+}
+.harbour-greeting p {
+  font-size: 14px;
+  color: #78866e;
+  line-height: 1.7;
+}
+.market-haul {
+  background: #e6e7d4;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.market-haul > span {
+  font-size: 16px;
+}
+.market-haul small {
+  display: block;
+  font-size: 12px;
+  color: #7a866e;
+  margin-top: 8px;
+}
+.market-haul strong {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font:
+    27px Georgia,
+    serif;
+  color: #718257;
+}
+.full-width {
+  width: 100%;
+  box-shadow: none;
+}
+.harbour-services {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  margin: 22px 0;
+}
+.harbour-services button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  background: #edead7;
+  border: 1px solid #cfd6be;
+  border-radius: 10px;
+  padding: 20px 9px;
+  color: #5a7b62;
+}
+.harbour-services button:hover {
+  background: #e1e6d0;
+}
+.harbour-services strong {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.harbour-services span {
+  font-size: 12px;
+  color: #869275;
+}
+.upgrade-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 0;
+  border-bottom: 1px solid #d4d9c0;
+}
+.upgrade-icon {
+  background: #e3e8d4;
+  padding: 15px;
+  border: 1px solid #cbd7bd;
+  border-radius: 11px;
+  color: #729070;
+}
+.upgrade-row > div:nth-child(2) {
+  flex: 1;
+}
+.upgrade-row .eyebrow {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #8a9678;
+}
+.upgrade-row h3 {
+  font:
+    21px Georgia,
+    serif;
+  margin: 9px 0;
+}
+.upgrade-row p {
+  font-size: 13px;
+  color: #798b74;
+  line-height: 1.6;
+}
+.upgrade-row small {
+  display: block;
+  font-size: 12px;
+  color: #809173;
+  margin-top: 7px;
+}
+.buy {
+  min-width: 76px;
+  background: #e7d395;
+  border-color: #ddc988;
+}
+.craft-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #d3dac1;
+  padding: 20px 0;
+}
+.craft-row > svg {
+  color: #7b9776;
+  flex-shrink: 0;
+}
+.craft-row > div {
+  flex: 1;
+}
+.craft-row h3 {
+  font:
+    21px Georgia,
+    serif;
+  margin-bottom: 10px;
+}
+.craft-row p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #78886f;
+}
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 17px 0;
+  border-bottom: 1px solid #d9ddc6;
+}
+.setting-row > div {
+  flex: 1;
+}
+.setting-row strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+.setting-row p {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #7a8c73;
+  margin-top: 6px;
+}
+.setting-row [data-slot='switch'] {
+  min-width: 38px;
+  height: 22px !important;
+}
+.setting-row [data-slot='switch-thumb'] {
+  height: 18px !important;
+  width: 18px !important;
+}
+.save-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 26px 0 10px;
+}
+.guide-intro {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: #e9e9d5;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+.guide-intro > svg {
+  flex-shrink: 0;
+  color: #69896a;
+}
+.guide-intro p {
+  font:
+    18px/1.6 Georgia,
+    serif;
+  color: #6f8167;
+}
+.guide-step {
+  display: flex;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid #d8ddc3;
+}
+.guide-step > span {
+  font:
+    22px Georgia,
+    serif;
+  color: #a7ae8b;
+  padding-top: 2px;
+}
+.guide-step h3 {
+  font:
+    21px Georgia,
+    serif;
+  margin: 0 0 9px;
+}
+.guide-step p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #70846e;
+}
+.guide-step:last-of-type {
+  margin-bottom: 25px;
+}
+.catch-panel[data-slot='dialog-content'] {
+  max-width: 410px !important;
+  text-align: center;
+}
+.catch-panel .panel-title {
+  padding: 0 !important;
+  margin: 13px 0 !important;
+  font-size: 29px !important;
+}
+.catch-panel > .eyebrow {
+  font-size: 12px;
+  color: #89946e;
+}
+.catch-panel [data-slot='dialog-description'] {
+  font-size: 13px;
+  color: #7d8b70;
+  line-height: 1.6;
+}
+.catch-art {
+  height: 145px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0 auto 15px;
+}
+.catch-art > span {
+  position: absolute;
+  width: 132px;
+  height: 132px;
+  border: 1px solid currentColor;
+  opacity: 0.22;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 14px #c3d7b51a,
+    0 0 0 28px #c3d7b50c;
+}
+.catch-art > svg:last-child {
+  position: absolute;
+  right: 75px;
+  top: 18px;
+  opacity: 0.8;
+}
+.catch-details {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 23px 0;
+  font-size: 14px;
+  color: #718666;
+}
+.catch-details span {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.catch-secondary {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+.catch-secondary button {
+  font-size: 12px;
+  background: transparent;
+}
+.touch-mode .dive-key-hint {
+  display: none;
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (max-width: 1100px) {
+  .desktop-hint {
+    display: none;
+  }
+  .save-status {
+    display: none;
+  }
+  .quest-card {
+    width: 225px;
+    padding: 18px;
+  }
+  .navigation-panel {
+    width: 170px;
+  }
+  .fishing-title,
+  .dive-title {
+    top: 110px;
+  }
+  .dive-title {
+    left: 50%;
+    width: 50%;
+  }
+  .dive-title h1 {
+    font-size: 28px;
+  }
+  .dive-title p {
+    font-size: 12px;
+  }
+  .dive-stats {
+    left: 22px;
+    width: 155px;
+    padding: 16px;
+  }
+  .loot-tracker {
+    right: 22px;
+    padding: 14px;
+    font-size: 12px;
+  }
+  .loot-tracker > span {
+    margin-left: 0;
+  }
+  .loot-tracker small {
+    font-size: 12px;
+  }
+  .quest-card p {
+    font-size: 13px;
+  }
+  .context-prompt {
+    font-size: 12px;
+  }
+}
+@media (max-width: 700px) {
+  .topbar {
+    top: max(14px, env(safe-area-inset-top));
+    left: 16px;
+    right: 16px;
+    gap: 8px;
+  }
+  .brand {
+    gap: 8px;
+  }
+  .brand > span {
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+  .brand small {
+    display: none;
+  }
+  .brand > svg {
+    width: 26px;
+    height: 26px;
+  }
+  .time-pill {
+    top: 61px;
+    left: auto;
+    right: 0;
+    transform: none;
+    padding: 9px 12px;
+    font-size: 12px;
+    gap: 8px;
+  }
+  .time-pill svg {
+    width: 14px;
+  }
+  .top-actions {
+    gap: 5px;
+  }
+  .top-actions .icon-button {
+    width: 36px;
+    height: 36px;
+  }
+  .help-button {
+    display: none !important;
+  }
+  .wallet {
+    right: 19px;
+    top: 120px;
+    gap: 6px;
+  }
+  .wallet strong {
+    font-size: 17px;
+  }
+  .wallet span {
+    display: none;
+  }
+  .wallet svg {
+    width: 15px;
+  }
+  .location {
+    left: 20px;
+    top: 94px;
+  }
+  .location .eyebrow {
+    font-size: 12px;
+    letter-spacing: 1.8px;
+  }
+  .location h1 {
+    font-size: 27px;
+    margin: 8px 0;
+  }
+  .location p {
+    display: none;
+  }
+  .quest-card,
+  .touch-mode .quest-card {
+    left: 18px;
+    top: 179px;
+    bottom: auto;
+    width: 191px;
+    padding: 13px 15px;
+    border-radius: 10px;
+    background: #f4efdcd6;
+  }
+  .quest-card .eyebrow {
+    font-size: 12px;
+    letter-spacing: 1.3px;
+  }
+  .quest-heading > svg {
+    width: 13px;
+  }
+  .quest-card h2 {
+    font-size: 17px;
+    margin: 9px 0;
+  }
+  .quest-card p {
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  .quest-progress {
+    font-size: 12px;
+    padding-top: 9px;
+    margin-top: 9px;
+  }
+  .quest-progress > svg {
+    width: 12px;
+  }
+  .navigation-panel {
+    right: 17px;
+    bottom: 117px;
+    width: 118px;
+  }
+  .minimap-button {
+    padding: 5px;
+    border-radius: 10px;
+  }
+  .minimap-button > span {
+    font-size: 7px;
+    letter-spacing: 0;
+    padding: 7px 0 3px;
+    gap: 4px;
+  }
+  .minimap-button > span > svg {
+    width: 10px;
+  }
+  .minimap-button > span > svg:last-child {
+    display: none;
+  }
+  .boat-meters {
+    padding: 10px;
+    margin-top: 8px;
+  }
+  .meter > div:first-child {
+    font-size: 12px;
+    gap: 5px;
+  }
+  .meter + .meter {
+    margin-top: 10px;
+  }
+  .meter-track {
+    margin-top: 5px;
+    height: 3px;
+  }
+  .meter svg {
+    width: 11px;
+  }
+  .bottom-dock {
+    bottom: max(20px, env(safe-area-inset-bottom));
+    gap: 7px;
+    width: calc(100% - 30px);
+    justify-content: center;
+  }
+  .action-button {
+    padding: 0 14px;
+    min-height: 50px;
+    gap: 7px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+  .action-button svg {
+    width: 18px;
+  }
+  .action-button kbd {
+    display: none;
+  }
+  .bottom-dock .icon-button {
+    width: 42px;
+    height: 42px;
+  }
+  .journal-button {
+    display: none !important;
+  }
+  .dock-divider {
+    display: none;
+  }
+  .context-prompt {
+    bottom: 84px;
+    font-size: 12px;
+    padding: 10px 13px;
+    gap: 8px;
+    max-width: calc(100% - 30px);
+    white-space: normal;
+  }
+  .context-prompt kbd {
+    display: none;
+  }
+  .context-prompt > svg {
+    width: 15px;
+    flex-shrink: 0;
+  }
+  .context-prompt.passive {
+    font-size: 12px;
+    bottom: 80px;
+    padding: 6px;
+  }
+  .toast {
+    top: 68px;
+    max-width: calc(100% - 30px);
+    font-size: 12px;
+    padding: 12px 14px;
+    gap: 8px;
+  }
+  .joystick {
+    bottom: 124px;
+    left: 24px;
+    width: 112px;
+    height: 112px;
+  }
+  .joystick-knob {
+    width: 47px;
+    height: 47px;
+  }
+  .fishing-title {
+    top: 170px;
+    width: calc(100% - 34px);
+  }
+  .fishing-title h1 {
+    font-size: 23px;
+    margin: 9px 0 10px;
+  }
+  .fishing-title .eyebrow {
+    font-size: 12px;
+  }
+  .fishing-title p {
+    font-size: 12px;
+    max-width: 330px;
+    margin: 0 auto;
+  }
+  .fish-guide {
+    bottom: 100px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .fish-guide small {
+    font-size: 12px;
+  }
+  .fishing-control {
+    bottom: 99px;
+    padding: 16px 18px;
+    width: calc(100% - 42px);
+  }
+  .reel-button {
+    min-width: 0;
+    flex: 1;
+    max-width: 220px;
+    font-size: 12px;
+  }
+  .fishing-actions .secondary {
+    font-size: 12px;
+  }
+  .dive-title {
+    top: 166px;
+    left: 20px;
+    transform: none;
+    text-align: left;
+    width: calc(100% - 40px);
+  }
+  .dive-title h1 {
+    font-size: 25px;
+  }
+  .dive-title .eyebrow {
+    font-size: 12px;
+  }
+  .dive-title p {
+    display: none;
+  }
+  .dive-stats {
+    top: 250px;
+    left: 20px;
+    width: 135px;
+    padding: 14px;
+  }
+  .dive-stats .meter > div:first-child {
+    font-size: 12px;
+  }
+  .depth-reading {
+    margin-top: 18px;
+  }
+  .depth-reading strong {
+    font-size: 27px;
+  }
+  .loot-tracker {
+    top: 254px;
+    right: 20px;
+    width: 155px;
+    font-size: 12px;
+    padding: 13px;
+    gap: 8px;
+  }
+  .loot-tracker > svg {
+    width: 18px;
+  }
+  .loot-tracker small {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .loot-tracker > span {
+    font-size: 20px;
+  }
+  .depth-controls {
+    right: 33px;
+    bottom: 120px;
+    gap: 9px;
+  }
+  .depth-controls .icon-button {
+    width: 46px;
+    height: 46px;
+  }
+  .dive-key-hint {
+    display: none;
+  }
+  .game-panel[data-slot='dialog-content'] {
+    width: calc(100% - 24px) !important;
+    padding: 23px 19px !important;
+    border-radius: 16px !important;
+    max-height: calc(100dvh - 28px);
+  }
+  .game-panel .panel-title {
+    font-size: 26px !important;
+  }
+  .panel-description {
+    font-size: 13px !important;
+    margin-bottom: 19px !important;
+  }
+  .panel-summary {
+    font-size: 12px;
+    gap: 8px;
+  }
+  .panel-note {
+    font-size: 13px;
+  }
+  .inventory-grid {
+    gap: 4px;
+  }
+  .cargo-item {
+    flex-direction: column;
+    gap: 2px;
+    padding: 3px;
+  }
+  .cargo-item span {
+    font-size: 12px;
+    max-height: 20px;
+    overflow: hidden;
+    text-align: center;
+  }
+  .cargo-item > svg {
+    width: 20px;
+    height: 20px;
+  }
+  .selected-cargo {
+    gap: 7px;
+  }
+  .selected-cargo > div {
+    flex-basis: 100%;
+  }
+  .nautical-tabs [data-slot='tabs-list'] {
+    margin: 2px 0 17px;
+  }
+  .nautical-tabs [data-slot='tabs-trigger'] {
+    font-size: 12px;
+    padding: 7px;
+    min-height: 38px;
+  }
+  .fish-catalogue {
+    grid-template-columns: 1fr;
+  }
+  .fish-entry {
+    padding: 12px 15px;
+    opacity: 0.7;
+  }
+  .fish-entry strong {
+    font-size: 14px;
+  }
+  .fish-entry small {
+    font-size: 12px;
+  }
+  .contract {
+    gap: 12px;
+  }
+  .contract p {
+    font-size: 12px;
+  }
+  .contract h3 {
+    font-size: 19px;
+  }
+  .upgrade-row {
+    gap: 10px;
+    padding: 18px 0;
+  }
+  .upgrade-icon {
+    padding: 10px;
+  }
+  .upgrade-icon > svg {
+    width: 20px;
+  }
+  .upgrade-row h3 {
+    font-size: 18px;
+  }
+  .upgrade-row p {
+    font-size: 12px;
+  }
+  .upgrade-row small {
+    font-size: 12px;
+  }
+  .upgrade-row .eyebrow {
+    font-size: 12px;
+  }
+  .buy {
+    min-width: 60px;
+    padding: 8px;
+    font-size: 12px;
+  }
+  .harbour-greeting {
+    gap: 12px;
+  }
+  .harbour-greeting h2 {
+    font-size: 21px;
+  }
+  .harbour-greeting p {
+    font-size: 13px;
+  }
+  .harbour-greeting > svg {
+    width: 29px;
+  }
+  .harbour-services {
+    gap: 6px;
+  }
+  .harbour-services button {
+    padding: 15px 7px;
+  }
+  .harbour-services strong {
+    font-size: 12px;
+  }
+  .harbour-services span {
+    font-size: 12px;
+  }
+  .harbour-services svg {
+    width: 20px;
+  }
+  .market-haul {
+    padding: 16px;
+  }
+  .market-haul small {
+    font-size: 12px;
+  }
+  .market-haul strong {
+    font-size: 24px;
+  }
+  .setting-row {
+    gap: 20px;
+    padding: 16px 0;
+  }
+  .setting-row strong {
+    font-size: 14px;
+  }
+  .setting-row p {
+    font-size: 12px;
+  }
+  .save-actions .small-button {
+    font-size: 12px;
+  }
+  .catch-panel[data-slot='dialog-content'] {
+    max-width: 360px !important;
+  }
+  .catch-art {
+    height: 125px;
+  }
+  .catch-art > span {
+    width: 110px;
+    height: 110px;
+  }
+  .catch-art > svg:last-child {
+    right: 55px;
+  }
+  .catch-panel .panel-title {
+    font-size: 26px !important;
+  }
+  .large-chart {
+    max-height: 55dvh;
+  }
+  .chart-legend {
+    font-size: 12px;
+  }
+  .charted-islands .small-button {
+    font-size: 12px;
+    min-height: 38px;
+  }
+  .guide-intro {
+    padding: 16px;
+  }
+  .guide-intro p {
+    font-size: 16px;
+  }
+  .guide-step {
+    gap: 13px;
+  }
+  .guide-step p {
+    font-size: 13px;
+  }
+  .guide-step h3 {
+    font-size: 19px;
+  }
+  .craft-row {
+    gap: 10px;
+  }
+  .craft-row h3 {
+    font-size: 19px;
+  }
+  .craft-row p {
+    font-size: 12px;
+  }
+  .craft-row > svg {
+    width: 25px;
+  }
+}
+@media (max-height: 600px) and (min-width: 701px) {
+  .topbar {
+    top: 15px;
+  }
+  .brand small {
+    display: none;
+  }
+  .location {
+    top: 91px;
+  }
+  .location h1 {
+    font-size: 28px;
+  }
+  .location p {
+    display: none;
+  }
+  .quest-card,
+  .touch-mode .quest-card {
+    left: 25px;
+    top: 177px;
+    bottom: auto;
+    width: 205px;
+    padding: 13px;
+  }
+  .quest-card p {
+    font-size: 12px;
+  }
+  .quest-card h2 {
+    font-size: 18px;
+    margin: 7px 0;
+  }
+  .quest-progress {
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+  .navigation-panel {
+    width: 120px;
+    right: 25px;
+    bottom: 101px;
+  }
+  .boat-meters {
+    display: none;
+  }
+  .wallet {
+    top: 74px;
+    right: 27px;
+  }
+  .bottom-dock {
+    bottom: 19px;
+  }
+  .context-prompt {
+    bottom: 83px;
+  }
+  .touch-mode .joystick {
+    width: 95px;
+    height: 95px;
+    bottom: 39px;
+  }
+  .joystick-knob {
+    width: 43px;
+    height: 43px;
+  }
+  .fishing-title,
+  .dive-title {
+    top: 83px;
+  }
+  .fishing-title h1 {
+    font-size: 24px;
+    margin: 7px 0;
+  }
+  .fishing-title p {
+    font-size: 12px;
+  }
+  .fishing-control {
+    bottom: 87px;
+    padding: 12px 18px;
+    width: 350px;
+  }
+  .fishing-title .eyebrow {
+    font-size: 12px;
+  }
+  .tension-track {
+    margin-bottom: 9px;
+    height: 11px;
+  }
+  .tension-label {
+    margin-bottom: 10px;
+  }
+  .dive-stats {
+    top: 105px;
+  }
+  .loot-tracker {
+    top: 115px;
+  }
+  .depth-controls {
+    bottom: 75px;
+  }
+  .toast {
+    top: 70px;
+    font-size: 12px;
+  }
+  .desktop-hint,
+  .save-status {
+    display: none;
+  }
+}
+@media (max-width: 380px) {
+  .brand > span {
+    font-size: 16px;
+  }
+  .brand > svg {
+    width: 23px;
+  }
+  .top-actions .icon-button {
+    width: 33px;
+    height: 33px;
+  }
+  .quest-card,
+  .touch-mode .quest-card {
+    width: 176px;
+  }
+  .action-button {
+    padding: 0 12px;
+    font-size: 12px;
+  }
+  .bottom-dock .icon-button {
+    width: 38px;
+    height: 38px;
+  }
+  .navigation-panel {
+    width: 104px;
+  }
+  .loot-tracker {
+    width: 142px;
+    right: 15px;
+  }
+  .dive-stats {
+    width: 124px;
+  }
+  .boat-meters {
+    padding: 9px;
+  }
+  .fishing-title {
+    top: 164px;
+  }
+  .fishing-title h1 {
+    font-size: 21px;
+  }
+}
+@media (max-width: 1100px) {
+  .brand small {
+    display: none;
+  }
+  .brand > span {
+    font-size: 22px;
+  }
+  .time-pill {
+    font-size: 12px;
+  }
+}
+@media (max-width: 700px) {
+  .brand > span {
+    font-size: 18px;
+  }
+  .minimap-button > span {
+    display: none;
+  }
+  .quest-heading .eyebrow {
+    letter-spacing: 0.3px;
+    font-size: 12px;
+  }
+  .quest-heading > svg {
+    display: none;
+  }
+  .quest-card,
+  .touch-mode .quest-card {
+    width: 195px;
+  }
+  .location .eyebrow {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  .wallet {
+    top: 124px;
+  }
+  .cargo-item span {
+    font-size: 12px;
+    max-height: 28px;
+  }
+  .cargo-item > svg {
+    flex-shrink: 1;
+    min-height: 12px;
+  }
+  .cargo-item {
+    gap: 1px;
+  }
+  .harbour-services strong,
+  .harbour-services span {
+    font-size: 12px;
+  }
+  .harbour-services button {
+    padding: 14px 5px;
+  }
+  .upgrade-row .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+  .minimap-button {
+    padding-bottom: 5px;
+  }
+  .fish-guide {
+    white-space: normal;
+    width: calc(100% - 30px);
+  }
+}
+@media (max-height: 600px) and (min-width: 701px) {
+  .touch-mode .quest-card {
+    display: none;
+  }
+  .brand > span {
+    font-size: 20px;
+  }
+  .minimap-button > span {
+    display: none;
+  }
+}
+@media (max-height: 620px) and (max-width: 700px) {
+  .quest-card p {
+    display: none;
+  }
+  .quest-card,
+  .touch-mode .quest-card {
+    top: 170px;
+  }
+  .fishing-title {
+    top: 160px;
+  }
+  .fishing-title p {
+    max-width: 290px;
+  }
+  .dive-title {
+    top: 157px;
+  }
+  .dive-stats,
+  .loot-tracker {
+    top: 227px;
+  }
+}
