@@ -1,0 +1,5 @@
+# Committed static export for GitHub Pages. Shader strings retain their spacing.
+docs/_next/** linguist-generated=true -whitespace
+docs/index.html linguist-generated=true
+docs/index.txt linguist-generated=true
+docs/.pages-manifest.json linguist-generated=true

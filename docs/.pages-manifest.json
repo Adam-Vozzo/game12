@@ -1,0 +1,19 @@
+{
+  "generator": "luma-tide-pages",
+  "basePath": "/game12",
+  "files": [
+    "favicon.svg",
+    "index.html",
+    "index.txt",
+    "_next/static/04461796-8700-4996-829a-593c0e02ba56/_buildManifest.js",
+    "_next/static/04461796-8700-4996-829a-593c0e02ba56/_ssgManifest.js",
+    "_next/static/chunks/framework-DTZGTDtF.js",
+    "_next/static/chunks/index-CCgNDXdU.js",
+    "_next/static/chunks/layout-segment-context-DZkKLjkF.js",
+    "_next/static/chunks/page-CQHTsGqf.js",
+    "_next/static/chunks/rolldown-runtime-hePW80VL.js",
+    "_next/static/chunks/vinext-DaReNHte.js",
+    "_next/static/css/index.2DlYFDja.css",
+    ".nojekyll"
+  ]
+}

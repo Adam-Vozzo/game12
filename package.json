@@ -8,6 +8,8 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "node scripts/build.mjs && node scripts/verify-build.mjs",
+    "build:pages": "node scripts/build-pages.mjs",
+    "preview:pages": "node scripts/serve.mjs docs /game12",
     "start": "node scripts/serve.mjs",
     "lint": "oxlint",
     "format": "oxfmt",

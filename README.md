@@ -4,7 +4,23 @@ A playable, single-player 3D fishing and exploration adventure for the browser, 
 
 ## Play
 
-The game opens directly on the ocean. Press **F** or tap **Cast line** to try your first catch; **H** opens the guide. A private playable deployment is provided with the project handoff.
+**[Play Luma Tide](https://adam-vozzo.github.io/game12/)**
+
+The game opens directly on the ocean. Press **F** or tap **Cast line** to try your first catch; **H** opens the guide.
+
+### GitHub Pages
+
+The repository includes a ready-to-play export in `docs/`. In **Settings → Pages**, use **Deploy from a branch**, select **main**, and select **/docs**. The game is served at `https://adam-vozzo.github.io/game12/`.
+
+To publish game changes, rebuild the Pages export and commit it with the source changes:
+
+```sh
+npm ci
+npm run build:pages
+npm run preview:pages
+```
+
+The preview runs at `http://localhost:4173/game12/`. The Pages build sets the `/game12` route and asset prefix, includes `.nojekyll`, and verifies the generated asset paths. It replaces only files recorded in its generated manifest, preserving the design document and other authored documentation. Push the updated source and `docs/` to `main` to update the live game. No custom GitHub Actions workflow is required.
 
 ### Run locally
 
@@ -80,6 +96,6 @@ Automated tests cover the complete catch–sell–upgrade loop, gear gates, day/
 
 This is a complete playable browser adaptation, not the multi-year PC/console production described in the GDD. It uses seven authored islands instead of twenty sea tiles, geometric models and synthesized audio instead of a production asset pipeline, a compact relic story, and freshness bonuses instead of expiring contracts. Fish variation is constrained rather than an unlimited modular-species generator. Dynamic weather, predatory fauna, toxic vents, sail/wind simulation, a separate skill tree, full NPC conversations, and console platform integration are not implemented.
 
-Validation in this implementation pass covers compilation, static production output, and automated simulation tests. Physical-device performance, touch ergonomics, gamepad models, and visual browser playtesting still need hands-on checks. Optional WebMCP tools are feature-detected; a supported WebMCP validation context was not available during implementation.
+Validation covers compilation, static production output, and 22 automated simulation tests. The GitHub Pages export was also checked in a browser at `/game12/`: the 3D scene rendered, casting entered fishing mode, and the phone-sized layout displayed its touch controls without browser errors. Physical-device performance, touch ergonomics, and gamepad models still need hands-on checks. Optional WebMCP tools are feature-detected.
 
 The original design brief is preserved in `docs/design-document.md`.
